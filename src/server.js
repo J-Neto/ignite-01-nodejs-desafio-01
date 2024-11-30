@@ -9,7 +9,7 @@ const server = http.createServer(async (req, res) => {
   await json(req, res)
 
   const route = routes.find(route => {
-    return route.method = method && route.path.test(url)
+    return route.method === method && route.path.test(url)
   })
 
   if(route) {
@@ -22,9 +22,7 @@ const server = http.createServer(async (req, res) => {
 
     return route.handler(req, res)
   }
-
-  res.writeHead(200).end()
-
+  return res.writeHead(404).end()
 })
 
 server.listen(3334)
