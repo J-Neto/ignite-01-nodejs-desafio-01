@@ -49,7 +49,10 @@ export class Database {
     const rowIndex = this.#database[table].findIndex(row => row.id === id)
 
     if (rowIndex > -1) {
-      this.#database[table][rowIndex] = { id, ...data }
+      this.#database[table][rowIndex].id = id
+      this.#database[table][rowIndex].title = data.title ?? this.#database[table][rowIndex].title
+      this.#database[table][rowIndex].description = data.description ?? this.#database[table][rowIndex].description
+      this.#database[table][rowIndex].updated_at = new Date()
       this.#persist()
     }
   }

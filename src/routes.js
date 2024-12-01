@@ -30,7 +30,6 @@ export const routes = [
     path: buildRoutePath('/tasks'),
     handler: (req, res) => {
       const { search } = req.query
-      console.log(req.query)
 
       const tasks = database.select('tasks', search ? {
         title: search,
