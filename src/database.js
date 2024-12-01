@@ -26,7 +26,8 @@ export class Database {
       this.#database[table] = [data]
     }
 
-    console.log(this.#database)
+    this.#persist()
+
     return data;
   }
 
