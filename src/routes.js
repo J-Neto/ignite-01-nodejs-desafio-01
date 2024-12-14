@@ -11,6 +11,13 @@ export const routes = [
     handler: (req, res) => {
       const { title, description } = req.body
 
+      if (!title) {
+        return res.writeHead(422).end(JSON.stringify({ error: "The field 'title' is required." }))
+      }
+      if (!description) {
+        return res.writeHead(422).end(JSON.stringify({ error: "The field 'description' is required." }))
+      }
+
       const task = {
         id: randomUUID(),
         title,

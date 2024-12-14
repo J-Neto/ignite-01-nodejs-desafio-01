@@ -65,4 +65,4 @@ Rotas:
 [X] `GET - /tasks`
 [X] `PUT - /tasks/:id`
 [x] `DELETE - /tasks/:id`
-[] `PATCH - /tasks/:id/complete`
+[x] `PATCH - /tasks/:id/complete`
