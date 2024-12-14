@@ -56,4 +56,29 @@ export class Database {
       this.#persist()
     }
   }
+
+  delete(table, id) {
+    const rowIndex = this.#database[table].findIndex(row => row.id === id)
+
+    if (rowIndex > -1) {
+      this.#database[table].splice(rowIndex,1)
+      this.#persist()
+    }
+  }
+
+  changeTaskStatus(table, id) {
+    const rowIndex = this.#database[table].findIndex(row => row.id === id)
+
+    if (rowIndex > -1) {
+      let isTaskCompleted = this.#database[table][rowIndex].completed_at
+
+      if (isTaskCompleted) {
+        this.#database[table][rowIndex].completed_at = null
+      } else {
+        this.#database[table][rowIndex].completed_at = new Date()
+      }
+      
+      this.#persist()
+    }
+  }
 }

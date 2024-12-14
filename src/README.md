@@ -57,3 +57,12 @@ Rotas:
     Deve ser possível marcar a task como completa ou não. Isso significa que se a task estiver concluída, deve voltar ao seu estado “normal”.
     
     Antes da alteração, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
+
+
+
+
+[X] `POST - /tasks`
+[X] `GET - /tasks`
+[X] `PUT - /tasks/:id`
+[x] `DELETE - /tasks/:id`
+[] `PATCH - /tasks/:id/complete`
