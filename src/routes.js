@@ -53,6 +53,10 @@ export const routes = [
       const { id } = req.params
       const { title, description} = req.body
 
+      if (!title && !description) {
+        return res.writeHead(422).end(JSON.stringify({ error: "Send at least one field!" }))
+      }
+
       database.update('tasks', id, {
         title,
         description
