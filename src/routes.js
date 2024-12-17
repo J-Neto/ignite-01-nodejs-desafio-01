@@ -9,6 +9,7 @@ export const routes = [
     method: 'POST',
     path: buildRoutePath('/tasks'),
     handler: (req, res) => {
+
       const { title, description } = req.body
 
       if (!title) {
@@ -28,6 +29,39 @@ export const routes = [
       }
 
       database.insert('tasks', task)
+
+      return res.writeHead(201).end()
+    }
+  },
+  {
+    method: 'POST',
+    path: buildRoutePath('/tasks/import'),
+    handler: (req, res) => {
+      const content = req.rawBody.split(/\r?\n/)
+
+      const lowerBound = content.indexOf('title,description')
+      const upperBound = content.indexOf('--X-INSOMNIA-BOUNDARY--')
+      
+      if (lowerBound === -1 || upperBound === -1 || lowerBound + 1 >= upperBound) {
+        return res.writeHead(400).end(JSON.stringify({ error: 'Invalid CSV format' }));
+      }
+
+      for (let i = lowerBound+1; i < upperBound; i++) {
+        const data = content[i].split(',')
+
+        const [title, description] = data;
+
+        const task = {
+          id: randomUUID(),
+          title: title.trim(),
+          description: description.replace(/\r/g, '').trim(),
+          completed_at: null,
+          created_at: new Date(),
+          updated_at: new Date(),
+        }
+
+        database.insert('tasks', task)
+      }
 
       return res.writeHead(201).end()
     }
